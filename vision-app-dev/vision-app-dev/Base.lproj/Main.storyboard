@@ -59,6 +59,10 @@
                                     <constraint firstAttribute="width" constant="75" id="j8Y-1f-eN8"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="P95-Qp-bAs">
+                                <rect key="frame" x="307" y="573" width="20" height="20"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0Q-1X-wDs" customClass="RoundedShadowButton" customModule="vision_app_dev" customModuleProvider="target">
                                 <rect key="frame" x="20" y="615" width="100" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,8 +86,10 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Re0-zD-JOY" secondAttribute="trailing" constant="20" id="A6a-md-VjV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ngv-Ia-lWt" secondAttribute="bottom" constant="20" id="JX2-sz-nWN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ngv-Ia-lWt" secondAttribute="trailing" constant="20" id="TJz-qa-vk7"/>
+                            <constraint firstItem="P95-Qp-bAs" firstAttribute="centerX" secondItem="Ngv-Ia-lWt" secondAttribute="centerX" id="TLG-Y0-HhR"/>
                             <constraint firstItem="Re0-zD-JOY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="aG1-du-oD1"/>
                             <constraint firstItem="LSh-yB-HsS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e6m-Jf-Cb4"/>
+                            <constraint firstItem="P95-Qp-bAs" firstAttribute="centerY" secondItem="Ngv-Ia-lWt" secondAttribute="centerY" id="fHB-qp-17D"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="M0Q-1X-wDs" secondAttribute="bottom" constant="20" id="flq-kG-u0i"/>
                             <constraint firstItem="Re0-zD-JOY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="30" id="nLp-6C-xVX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LSh-yB-HsS" secondAttribute="trailing" id="pgN-i8-d3y"/>
@@ -98,6 +104,7 @@
                         <outlet property="flashBtn" destination="M0Q-1X-wDs" id="Pib-TQ-ZU4"/>
                         <outlet property="identificationLbl" destination="QRT-r6-pXa" id="mP5-zB-CwB"/>
                         <outlet property="roundedLblView" destination="Re0-zD-JOY" id="9XA-IA-fpu"/>
+                        <outlet property="spinner" destination="P95-Qp-bAs" id="Fmt-Io-9LM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
