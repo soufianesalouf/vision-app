@@ -93,13 +93,13 @@ class CameraVC: UIViewController {
 //        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
 //        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType, kCVPixelBufferWidthKey as String: 160, kCVPixelBufferHeightKey as String: 160]
 //        settings.previewPhotoFormat = previewFormat
-        
+
         if flashControlState == .off {
             settings.flashMode = .off
         } else {
             settings.flashMode = .on
         }
-        
+
         settings.previewPhotoFormat = settings.embeddedThumbnailPhotoFormat
         cameraOutput.capturePhoto(with: settings, delegate: self)
     }
@@ -153,7 +153,7 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
             debugPrint(error)
         } else {
             photoData = photo.fileDataRepresentation()
-            
+
             do {
                 let model = try VNCoreMLModel(for: SqueezeNet().model)
                 let request = VNCoreMLRequest(model: model, completionHandler: resultsMethod)
@@ -162,7 +162,7 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
             } catch {
                 debugPrint(error)
             }
-            
+
             let image = UIImage(data: photoData!)
             self.captureImageView.image = image
         }
