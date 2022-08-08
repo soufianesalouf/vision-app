@@ -16,9 +16,10 @@ enum FlashState {
     case on
 }
 
-class CameraVC: UIViewController {
+class CameraViewController: UIViewController {
 
-    //Outlets
+    // MARK: - Views
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var captureImageView: RoundedShadowImageView!
     @IBOutlet weak var flashBtn: RoundedShadowButton!
@@ -27,20 +28,19 @@ class CameraVC: UIViewController {
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var roundedLblView: RoundedShadowView!
     
-    //var
+    // MARK: - Properties
+    
     var captureSession: AVCaptureSession!
     var cameraOutput: AVCapturePhotoOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    
     var photoData: Data?
-    
     var flashControlState: FlashState = .off
-    
     var speechSynthesizer = AVSpeechSynthesizer()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,9 +53,11 @@ class CameraVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Add a tap gesture to take photo
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCameraView))
         tap.numberOfTapsRequired = 1
         
+        // Setup and start a capture session
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         
@@ -85,14 +87,13 @@ class CameraVC: UIViewController {
         
     }
     
+    // MARK: - Local Helpers
+    
     @objc func didTapCameraView() {
         self.cameraView.isUserInteractionEnabled = false
         self.spinner.isHidden = false
         spinner.startAnimating()
         let settings = AVCapturePhotoSettings()
-//        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-//        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType, kCVPixelBufferWidthKey as String: 160, kCVPixelBufferHeightKey as String: 160]
-//        settings.previewPhotoFormat = previewFormat
 
         if flashControlState == .off {
             settings.flashMode = .off
@@ -104,28 +105,41 @@ class CameraVC: UIViewController {
         cameraOutput.capturePhoto(with: settings, delegate: self)
     }
     
-    func resultsMethod(request: VNRequest, error: Error?){
+    func resultsMethod(request: VNRequest, error: Error?) {
         guard let results = request.results  as? [VNClassificationObservation] else { return }
         
-        for classification in results {
-            if classification.confidence < 0.5 {
+        for item in results {
+            print("Prediction: \(item.identifier) \nConfidence: \(item.confidence)\n------------------")
+
+        }
+        
+        guard let predictionResults = results.first else { return }
+        
+            if predictionResults.confidence < 0.5 {
+                
+                // Announce to user that we failed to recognize the object
                 let unknownObjectMessage = "I'm not sure what this is. Please try again."
-                self.identificationLbl.text = unknownObjectMessage
                 synthesizerSpeech(forString: unknownObjectMessage)
+                
+                // Set Labels with unknown object message
+                self.identificationLbl.text = unknownObjectMessage
                 self.confidenceLbl.text = ""
-                break
             } else {
-                let identification = classification.identifier
-                let confidence = Int(classification.confidence * 100)
+                
+                // Get the prediction result
+                let identification = predictionResults.identifier
+                
+                // Get the confidence
+                let confidence = Int(predictionResults.confidence * 100)
+                
+                // Announce the prediction to the user
+                let completeSentence = "This looks like a \(identification) and I'm \(confidence) percent sure."
+                synthesizerSpeech(forString: completeSentence)
+                
+                // Setup with the prediction results
                 self.identificationLbl.text = identification
                 self.confidenceLbl.text = "CONFIDENCE: \(confidence)%"
-                
-                let completeSentence = "This looks like a \(identification) and I'm \(confidence) percent sure."
-                
-                synthesizerSpeech(forString: completeSentence)
-                break
             }
-        }
     }
     
     func synthesizerSpeech(forString string: String){
@@ -133,6 +147,7 @@ class CameraVC: UIViewController {
         speechSynthesizer.speak(speechUtterance)
     }
     
+    // MARK: - Actions
     
     @IBAction func flashBtnWasPressed(_ sender: Any) {
         switch flashControlState {
@@ -147,13 +162,20 @@ class CameraVC: UIViewController {
     
 }
 
-extension CameraVC: AVCapturePhotoCaptureDelegate {
+// MARK: - AVCapturePhotoCaptureDelegate
+
+extension CameraViewController: AVCapturePhotoCaptureDelegate {
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
         if let error = error {
             debugPrint(error)
         } else {
+            
+            // Get the photo data
             photoData = photo.fileDataRepresentation()
 
+            // Set Up Vision with a Core ML Model
             do {
                 let model = try VNCoreMLModel(for: SqueezeNet().model)
                 let request = VNCoreMLRequest(model: model, completionHandler: resultsMethod)
@@ -163,18 +185,24 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
                 debugPrint(error)
             }
 
+            // Add image to the preview container
             let image = UIImage(data: photoData!)
             self.captureImageView.image = image
         }
     }
+    
 }
 
-extension CameraVC: AVSpeechSynthesizerDelegate {
+// MARK: - AVSpeechSynthesizerDelegate##
+
+extension CameraViewController: AVSpeechSynthesizerDelegate {
+    
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         self.cameraView.isUserInteractionEnabled = true
         self.spinner.isHidden = true
         self.spinner.stopAnimating()
     }
+    
 }
 
 

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		90334D4720507E8900DAEC4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90334D4620507E8900DAEC4D /* AppDelegate.swift */; };
-		90334D4920507E8900DAEC4D /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90334D4820507E8900DAEC4D /* CameraVC.swift */; };
+		90334D4920507E8900DAEC4D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90334D4820507E8900DAEC4D /* CameraViewController.swift */; };
 		90334D4C20507E8900DAEC4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90334D4A20507E8900DAEC4D /* Main.storyboard */; };
 		90334D4E20507E9700DAEC4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90334D4D20507E9700DAEC4D /* Assets.xcassets */; };
 		90334D5120507E9700DAEC4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90334D4F20507E9700DAEC4D /* LaunchScreen.storyboard */; };
@@ -21,7 +21,7 @@
 /* Begin PBXFileReference section */
 		90334D4320507E8900DAEC4D /* vision-app-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vision-app-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90334D4620507E8900DAEC4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		90334D4820507E8900DAEC4D /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		90334D4820507E8900DAEC4D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		90334D4B20507E8900DAEC4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90334D4D20507E9700DAEC4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90334D5020507E9700DAEC4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 		90334D5820507EB000DAEC4D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				90334D4820507E8900DAEC4D /* CameraVC.swift */,
+				90334D4820507E8900DAEC4D /* CameraViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -171,7 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90334D4920507E8900DAEC4D /* CameraVC.swift in Sources */,
+				90334D4920507E8900DAEC4D /* CameraViewController.swift in Sources */,
 				90334D6220509AAD00DAEC4D /* SqueezeNet.mlmodel in Sources */,
 				90334D4720507E8900DAEC4D /* AppDelegate.swift in Sources */,
 				90334D5C2050834900DAEC4D /* RoundedShadowView.swift in Sources */,
